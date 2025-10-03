@@ -1,11 +1,11 @@
-# Use uma versão específica do Mongo para evitar quebras futuras
-FROM mongo:4.4
+FROM mongo:3.6.3
 
-# Copia os arquivos JSON para uma subpasta dentro do diretório de inicialização
-COPY ./json /docker-entrypoint-initdb.d/json/
+EXPOSE 27017
 
-# Copia o script de inicialização para a raiz do diretório de inicialização
-COPY ./init-mongo.sh /docker-entrypoint-initdb.d/init-mongo.sh
+ADD run.sh /run.sh
 
-# Torna o script executável
-RUN chmod +x /docker-entrypoint-initdb.d/init-mongo.sh
+ADD ./files/mongod.conf /etc/mongod.conf
+
+RUN chmod +x /run.sh
+
+CMD ["/run.sh"]
