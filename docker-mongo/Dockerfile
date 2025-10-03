@@ -1,10 +1,10 @@
-FROM mongo:3.6.3
+FROM mongo:5
 
 EXPOSE 27017
 
 ADD run.sh /run.sh
 
-ADD ./files/mongod.conf /etc/mongod.conf
+ADD files/mongod.conf /etc/mongod.conf
 
 RUN chmod +x /run.sh
 
