@@ -1,11 +1,12 @@
-FROM mongo:3.6.3
+FROM mongo:5
+
+# Copia o arquivo mongod.conf da subpasta correta
+COPY docker-mongo/files/mongod.conf /etc/mongod.conf
+
+# Copia e dá permissão no run.sh
+COPY docker-mongo/run.sh /run.sh
+RUN chmod +x /run.sh
 
 EXPOSE 27017
 
-ADD run.sh /run.sh
-
-ADD ./files/mongod.conf /etc/mongod.conf
-
-RUN chmod +x /run.sh
-
-CMD ["/run.sh"]
+CMD ["sh", "/run.sh"]
