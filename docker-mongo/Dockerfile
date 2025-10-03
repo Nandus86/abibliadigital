@@ -1,9 +1,11 @@
-FROM mongo:5
+FROM mongo:3.6.3
 
 EXPOSE 27017
 
-COPY run.sh /run.sh
-COPY ./files/mongod.conf /etc/mongod.conf
+COPY docker-mongo/run.sh /run.sh
+COPY docker-mongo/files/mongod.conf /etc/mongod.conf
+
+COPY docker-mongo/files/ /files/ 
 
 RUN chmod +x /run.sh
 
