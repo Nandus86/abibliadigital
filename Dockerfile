@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY package*.json ./
 RUN npm install --production
-RUN chmod +x docker-mongo/run.sh
+RUN chmod +x ./docker-mongo/run.sh
 COPY . .
 
 EXPOSE 4000
