@@ -1,12 +1,9 @@
 FROM mongo:5
 
-# Copia o arquivo mongod.conf da subpasta correta
+# Copia o arquivo de configuração
 COPY docker-mongo/files/mongod.conf /etc/mongod.conf
-
-# Copia e dá permissão no run.sh
-COPY docker-mongo/run.sh /run.sh
-RUN chmod +x /run.sh
 
 EXPOSE 27017
 
-CMD ["sh", "/run.sh"]
+# Comando para rodar Mongo diretamente
+CMD ["mongod", "--config", "/etc/mongod.conf"]
