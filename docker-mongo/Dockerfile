@@ -1,13 +1,11 @@
-FROM mongo:5
+# Use uma versão específica do Mongo para evitar quebras futuras
+FROM mongo:4.4
 
-# Copia o arquivo de configuração (se necessário)
-COPY docker-mongo/files/mongod.conf /etc/mongod.conf
+# Copia os arquivos JSON para uma subpasta dentro do diretório de inicialização
+COPY ./json /docker-entrypoint-initdb.d/json/
 
-# Copia o run.sh da pasta correta
-COPY docker-mongo/run.sh /run.sh
-RUN chmod +x /run.sh
+# Copia o script de inicialização para a raiz do diretório de inicialização
+COPY ./init-mongo.sh /docker-entrypoint-initdb.d/init-mongo.sh
 
-EXPOSE 27017
-
-# Executa o script diretamente
-CMD ["sh", "/run.sh"]
+# Torna o script executável
+RUN chmod +x /docker-entrypoint-initdb.d/init-mongo.sh
